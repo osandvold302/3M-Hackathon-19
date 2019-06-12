@@ -1,4 +1,5 @@
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+import RPi.GPIO as GPIO
 import logging
 import time
 import argparse
@@ -6,7 +7,7 @@ import json
 
 # set up Pi pins
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # AWS
 host = "a15llkyp1ib6yl-ats.iot.us-east-1.amazonaws.com"
@@ -31,11 +32,11 @@ myAWSIoTMQTTClient.connect()
 while True:
     message = {}
     input_state = GPIO.input(18)
-    if input_state == False:
-        message['message'] = "pressed button"
+    if input_state == GPIO.HIGH:
+        message['message'] = "Dash Button Pressed in Room 201 C"
         messageJson = json.dumps(message)
         myAWSIoTMQTTClient.publish(topic, messageJson, 1)
         print('Published topic %s: %s\n' % (topic, messageJson))
-        time.sleep(10)  # TODO: Set to 60 for real example
+        time.sleep(15)  # TODO: Set to 60 for real example
 
 myAWSIoTMQTTClient.disconnect()
