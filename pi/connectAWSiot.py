@@ -10,10 +10,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # AWS
-host = "a15llkyp1ib6yl-ats.iot.us-east-1.amazonaws.com"
-certPath = "/home/pi/certificates/"
+host =  # retrieve endpoint from IOTCORE/Settings #"a15llkyp1ib6yl-ats.iot.us-east-1.amazonaws.com"
+certPath = "/home/pi/certificates/" # key, certificate, aws root cert
 clientId = "osandvold"
-topic = "online-post-it"
+topic = "online-post-it"    # iot topic 
 
 # Init AWSIoTMQTTClient
 myAWSIoTMQTTClient = None
